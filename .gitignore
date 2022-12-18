@@ -1,0 +1,10 @@
+/build
+/build-vs2015
+/3rdparty
+/debug
+/release
+/.vs
+*.sln
+*.vcxproj
+*.vcxproj.*
+/vs2019-build

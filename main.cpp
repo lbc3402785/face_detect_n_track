@@ -9,7 +9,8 @@ const cv::String    CASCADE_FILE("haarcascade_frontalface_default.xml");
 int main(int argc, char** argv)
 {
 	// Try opening camera
-	cv::VideoCapture camera(0);
+	//cv::VideoCapture camera(0);
+	cv::VideoCapture camera("F:/coding/deformation-transfer/HyperLandmark/resource/demo.mp4");
 	//cv::VideoCapture camera("D:\\video.mp4");
 	if (!camera.isOpened()) {
 		fprintf(stderr, "Error getting camera...\n");
@@ -26,12 +27,14 @@ int main(int argc, char** argv)
 		auto start = cv::getCPUTickCount();
 		detector >> frame;
 		auto end = cv::getCPUTickCount();
-
+		if (frame.empty()) {
+			break;
+		}
 		time_per_frame = (end - start) / cv::getTickFrequency();
 		fps = (15 * fps + (1 / time_per_frame)) / 16;
 
 		printf("Time per frame: %3.3f\tFPS: %3.3f\n", time_per_frame, fps);
-
+		
 		if (detector.isFaceFound())
 		{
 			cv::rectangle(frame, detector.face(), cv::Scalar(255, 0, 0));
